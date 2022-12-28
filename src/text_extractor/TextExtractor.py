@@ -6,7 +6,8 @@ from text_extractor.OCRPostprocessor import cluster, clear_text, autocorrect_tex
 from text_extractor.TesseractOCR import TesseractOCR
 from text_extractor.VisionOCR import VisionOCR
 
-tesseract_path = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+#tesseract_path = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+tesseract_path = r'/Users/marco/tesseract/tesseract'
 cloud_credentials = '../../credentials/credentials.json'
 
 
@@ -34,8 +35,8 @@ def extract_text(img_paths, engine, rescale=False, binarize=False, clustering=Fa
 
         if engine == "tesseract":
             extractor = TesseractOCR(tesseract_path)
-        elif engine == "vision-api":
-            extractor = VisionOCR(cloud_credentials)
+        #elif engine == "vision-api":
+        #    extractor = VisionOCR(cloud_credentials)
         else:
             raise Exception("Invalid OCR engine: supported engines are ")
 

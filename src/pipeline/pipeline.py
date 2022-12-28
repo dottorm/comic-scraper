@@ -8,7 +8,7 @@ import datetime
 import cv2
 from scraper.Scraper import Scraper
 from panel_extractor.PanelExtractor import PanelExtractor
-#from text_extractor.TextExtractor import extract_text
+from text_extractor.TextExtractor import extract_text
 from utils import get_dates_list, create_dir
 
 full_images = "data/full-images"
@@ -36,9 +36,9 @@ if __name__ == "__main__":
     splitted_images_directory = splitted_images
     panel_extractor = PanelExtractor()
     splitted_images_paths = panel_extractor.extract_and_save_panels(full_images_paths, splitted_images_directory)
-'''
+
     # get transcriptions
-    transcriptions = extract_text(splitted_images_paths, "vision-api", rescale=True, clustering=True)
+    transcriptions = extract_text(splitted_images_paths, "tesseract", rescale=True, clustering=True)
 
     # visualize
     for path in splitted_images_paths:
@@ -46,4 +46,3 @@ if __name__ == "__main__":
         cv2.imshow("path", image)
         print(transcriptions[path])
         cv2.waitKey(0)
-'''

@@ -2,7 +2,7 @@ import io
 import os
 
 import cv2
-from google.cloud import vision
+#from google.cloud import vision
 import numpy as np
 
 
