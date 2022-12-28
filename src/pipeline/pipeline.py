@@ -9,7 +9,7 @@ import cv2
 from scraper.Scraper import Scraper
 from panel_extractor.PanelExtractor import PanelExtractor
 #from text_extractor.TextExtractor import extract_text
-from utils import get_dates_list
+from utils import get_dates_list, create_dir
 
 full_images = "data/full-images"
 splitted_images = "data/splitted-images"
@@ -26,15 +26,13 @@ if __name__ == "__main__":
     # get asset url from the main page
     urls = scraper.get_asset_urls_multithreaded(comic_urls)
     # determing output paths, scrape images and save them
-    if(not os.path.exists(full_images)):
-        os.makedirs(full_images)
+    create_dir(full_images)
     full_images_directory = full_images
     full_images_paths = [f"{full_images_directory}/{date}.png" for date in date_strings]
     scraper.scrape_and_save_multithreaded(urls, full_images_paths, max_workers=5)
 
     # extract panels from each full illustration
-    if(not os.path.exists(splitted_images)):
-        os.makedirs(splitted_images)
+    create_dir(splitted_images)
     splitted_images_directory = splitted_images
     panel_extractor = PanelExtractor()
     splitted_images_paths = panel_extractor.extract_and_save_panels(full_images_paths, splitted_images_directory)
