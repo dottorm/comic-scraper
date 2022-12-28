@@ -1,6 +1,5 @@
 import datetime
 
-
 def get_dates_list(start_date, end_date):
     """
     Produces a list of dates between the given boundaries.
