@@ -38,11 +38,12 @@ if __name__ == "__main__":
     splitted_images_paths = panel_extractor.extract_and_save_panels(full_images_paths, splitted_images_directory)
 
     # get transcriptions
-    transcriptions = extract_text(splitted_images_paths, "tesseract", rescale=True, clustering=True)
+    transcriptions, img = extract_text(splitted_images_paths, "tesseract", rescale=True, clustering=True)
 
     # visualize
     for path in splitted_images_paths:
         image = cv2.imread(path)
         cv2.imshow("path", image)
-        print(transcriptions[path])
+        words = transcriptions[path]
+        print(words)
         cv2.waitKey(0)
