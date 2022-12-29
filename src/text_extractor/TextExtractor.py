@@ -35,8 +35,8 @@ def extract_text(img_paths, engine, rescale=False, binarize=False, clustering=Fa
 
         if engine == "tesseract":
             extractor = TesseractOCR(tesseract_path)
-        #elif engine == "vision-api":
-        #    extractor = VisionOCR(cloud_credentials)
+        elif engine == "vision-api":
+            extractor = VisionOCR(cloud_credentials)
         else:
             raise Exception("Invalid OCR engine: supported engines are ")
 
