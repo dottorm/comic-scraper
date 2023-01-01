@@ -6,7 +6,7 @@ from tqdm import tqdm
 class TesseractOCR:
     def __init__(self, tesseract_path):
         """
-
+        Constructor
         :param tesseract_path:
         """
         tess.pytesseract.tesseract_cmd = tesseract_path
@@ -17,9 +17,10 @@ class TesseractOCR:
         :param image: image to detect text in.
         :return: tuple of lists, one containing the detected strings, the other containing the b-boxes.
         """
-        custom_config = r'-c tessedit_char_whitelist' \
-                        r"='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.,?!- '"
-        boxes = tess.image_to_data(image, config=custom_config)
+        config = r'-c tessedit_char_whitelist' \
+                        r"='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.,?!-$% '"
+        #config = '--psm 3'
+        boxes = tess.image_to_data(image, config=config)
         words = []
         bboxes = []
 
@@ -51,7 +52,8 @@ class TesseractOCR:
             x,y,w,h = cv2.boundingRect(c)
             ROI = thresh[y:y+h, x:x+w]
             data = tess.image_to_string(ROI, lang='eng',config='--psm 6').lower()
-            if data in words:
+            if words[0] in data:
+                print("---------------------qui")
                 img[y:y+h, x:x+w] = [255,255,255]
         
         return img
