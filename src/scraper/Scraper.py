@@ -11,6 +11,7 @@ import requests
 from PIL import Image
 from bs4 import BeautifulSoup
 from tqdm import tqdm
+import time
 
 
 class Scraper:
@@ -40,9 +41,9 @@ class Scraper:
         :param max_workers: Number of threads.
         :return: A list of URLs.
         """
-
+        max_workers = 4
         results = self.scrape_multi_threaded(urls, self.get_asset_url, max_workers)
-
+        print(results)
         if out_file:
             json.dump(results, open(out_file, "w+"))
 
@@ -93,10 +94,12 @@ class Scraper:
             futures = list()
             for url, path in tqdm(zip(urls, paths)):
                 futures.append(executor.submit(self.save_image_from_url, conf=(path, url)))
+                time.sleep(10)
 
             results = list()
             for future in concurrent.futures.as_completed(futures):
                 results.append(future.result())
+                time.sleep(10)
 
     def scrape_and_save_singlethreaded(self, urls, paths):
         """
@@ -127,10 +130,14 @@ class Scraper:
             futures = list()
             for url in urls:
                 futures.append(executor.submit(handler, url=url))
+                print(futures)
+                time.sleep(10)
 
             results = list()
             for future in concurrent.futures.as_completed(futures):
                 results.append(future.result())
+                print(results)
+                time.sleep(10)
 
             return results
 

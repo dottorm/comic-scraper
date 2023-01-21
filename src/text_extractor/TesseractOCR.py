@@ -53,7 +53,6 @@ class TesseractOCR:
             ROI = thresh[y:y+h, x:x+w]
             data = tess.image_to_string(ROI, lang='eng',config='--psm 6').lower()
             if words[0] in data:
-                print("---------------------qui")
                 img[y:y+h, x:x+w] = [255,255,255]
         
         return img
